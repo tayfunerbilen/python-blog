@@ -36,6 +36,13 @@ def hasPost(url):
     return post
 
 
+def hasUser(email):
+    sql = "SELECT user_id FROM users WHERE user_email = %s"
+    cursor.execute(sql, (email,))
+    post = cursor.fetchone()
+    return post
+
+
 def timeAgo(date):
     return timeago.format(date, datetime.now(), 'tr')
 
@@ -109,6 +116,8 @@ def register():
             error = 'Şifrenizi belirtin.'
         elif request.form['password'] != request.form['re_password']:
             error = 'Girdiğiniz şifreler birbiriyle uyuşmuyor'
+        elif hasUser(request.form['email']):
+            error = 'Bu e-posta ile birisi zaten kayıtlı, başka bir tane deneyin'
         else:
             sql = "INSERT INTO users SET user_name = %s, user_email = %s, user_password = %s"
             cursor.execute(sql, (request.form['username'], request.form['email'], md5(request.form['password'])))
