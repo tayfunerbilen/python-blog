@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block title %}{{ post['post_title'] }}{% endblock %}
+
+{% block content %}
+<h3>{{ post['post_title'] }}</h3>
+
+<div class="post-detail">
+    {{ post['post_content']|safe }}
+</div>
+
+<div class="post-meta">
+    <ul>
+        <li>Yazar: {{ post['user_name'] }}</li>
+        <li>Tarih: {{ post['post_date']|timeAgo }}</li>
+        <li>Kategori: {{ post['category_name'] }}</li>
+    </ul>
+</div>
+{% endblock %}

@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% block title %}Blog{% endblock %}
+
+{% block content %}
+<h3>İçerik Ekle</h3>
+
+<form action="" method="POST" class="form">
+
+    {% if error %}
+    <div class="error">
+        {{ error }}
+    </div>
+    {% endif %}
+
+    <ul>
+        <li>
+            <label for="title">Makale Başlığı</label>
+            <input type="text" id="title" name="title" value="{{ request.form['title'] }}">
+        </li>
+        <li>
+            <label for="category">Makale Kategorisi</label>
+            <select id="category" name="category_id">
+                <option value="">Seçin {{ request.form['category_id'] }}</option>
+                {% for category in categories() %}
+                <option value="{{ category['category_id'] }}">{{ category['category_name'] }}</option>
+                {% endfor %}
+            </select>
+        </li>
+        <li>
+            <label for="content">Makale İçeriği</label>
+            <textarea name="content" id="content" cols="30" rows="10">{{ request.form['content'] }}</textarea>
+        </li>
+        <li>
+            <button type="submit">PAYLAŞ</button>
+        </li>
+    </ul>
+</form>
+{% endblock %}
